@@ -9,21 +9,26 @@ var expressHandleBars = require('express-handlebars');
 var app = express();
 var mongoose = require('mongoose');
 var session = require('express-session');
+var passport = require('passport');
+var flash = require('connect-flash');
 
-//mongoose.connect('mongodb://kamau:wamatu@localhost:27017/Shopping')
+//Connect to Mongodb.
+
 mongoose.connect('mongodb://localhost:27017/ShopCart',{useNewUrlParser:true})
 
 // view engine setup
+
 app.engine('.hbs',expressHandleBars({defaultLayout:'layout',extname:'.hbs'}));
 app.set('view engine', '.hbs');
-
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret: 'mysupersecret',resave:false,saveUninitialized:false}));
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
-
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
