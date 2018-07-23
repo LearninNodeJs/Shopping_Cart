@@ -14,7 +14,8 @@ var flash = require('connect-flash');
 
 //Connect to Mongodb.
 
-mongoose.connect('mongodb://localhost:27017/ShopCart',{useNewUrlParser:true})
+mongoose.connect('mongodb://localhost:27017/ShopCart',{useNewUrlParser:true});
+require('./config/passport')
 
 // view engine setup
 
