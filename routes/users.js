@@ -6,12 +6,6 @@ var csrf = require('csurf');
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
-router.get('/profile',isLoggedIn,function (req,res,next) {
-    res.render('user/profile');
-});
-router.use('/',notLoggedIn,function(req,res,next){
-  next();
-});
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -38,6 +32,13 @@ router.post('/signin',passport.authenticate('local.signin',{
     failureRedirect:'/user/signin',
     failureFlash:true
 }));
+router.get('/profile',isLoggedIn,function (req,res,next) {
+    res.render('user/profile');
+});
+router.use('/',notLoggedIn,function(req,res,next){
+    next();
+});
+
 router.get('/logout',function(req,res,next){req.logout();res.render('/signin')});
 module.exports = router;
 
