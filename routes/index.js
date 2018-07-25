@@ -31,6 +31,14 @@ router.post('/user/signup',passport.authenticate('local.signup',{
 router.get('/user/profile',function (req,res,next) {
     res.render('user/profile');
 });
-
+router.get('/user/signin',function(req,res,next){
+    var messages = req.flash('error');
+   res.render('user/signin',{csrfToken: req.csrfToken(),messages:messages,hasErrors:messages.length>0});
+});
+router.post('/user/signin',passport.authenticate('local.signin',{
+    successRedirect: '/user/profile',
+    failureRedirect:'/user/signin',
+    failureFlash:true
+}));
 
 module.exports = router;

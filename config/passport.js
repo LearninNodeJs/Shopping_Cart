@@ -2,6 +2,7 @@ var passport = require('passport');
 var userModel = require('../models/user');
 var LocalStrategy = require('passport-local').Strategy;
 
+
 passport.serializeUser(function (user,done){
     done(null,user.id);
 });
@@ -24,7 +25,7 @@ passport.use('local.signup',new LocalStrategy({
             errors.forEach(function(error){
                messages.push(error.msg);
             });
-            return done(null,false,req.flash('error',messages));
+            return done(null,false,req.flash('error',messages))                        ;
         }
         userModel.findOne({'email':email},function(err,user){
            if(err){
@@ -42,5 +43,34 @@ passport.use('local.signup',new LocalStrategy({
               }
               return done(null, newUser);
            });
+        });
+}));
+
+passport.use('local.signin', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password',
+        passReqToCallback: true,},
+    function(req,email,password,done){
+        req.checkBody('email','Invalid Email').notEmpty().isEmail();
+        req.checkBody('password','Please Enter Password').notEmpty();
+        var errors = req.validationErrors();
+        if(errors){
+            var messages = [];
+            errors.forEach(function(error){
+               messages.push(error);
+            });
+            return done(null,false, req.flash('error',messages));
+        }
+        userModel.findOne({'email':email},function(err,user){
+           if(err){
+               return done(err);
+           }
+           if(!user){
+               return done(null,false,{message: 'User Not Found'});
+           }
+           if(!user.validPassword(password)){
+               return done(null,false,{message: 'Incorrect Password'});
+           }
+           return done(null,user);
         });
 }));
