@@ -24,10 +24,10 @@
                     <ul class="dropdown-menu">
                         {{#if login}}
                             <li><a href="#"><i class="fa fa-user" style="padding-right: 10px" aria-hidden="true"></i>User Account</a></li>
-                            <li><a href="#"><i class="fas fa-sign-out-alt" style="padding-right: 10px"></i>Sign Out</a></li>
+                            <li><a href="/user/logout"><i class="fas fa-sign-out-alt" style="padding-right: 10px"></i>Sign Out</a></li>
                             {{else}}
-                            <li><a href="#"><i class="fa fa-user" style="padding-right: 10px" aria-hidden="true"></i>Sign Up</a></li>
-                            <li><a href="#"><i class="fas fa-sign-out-alt" style="padding-right: 10px"></i>Sign In</a></li>
+                            <li><a href="/user/signup"><i class="fa fa-user" style="padding-right: 10px" aria-hidden="true"></i>Sign Up</a></li>
+                            <li><a href="/user/signin"><i class="fas fa-sign-out-alt" style="padding-right: 10px"></i>Sign In</a></li>
 
                         {{/if}}
 

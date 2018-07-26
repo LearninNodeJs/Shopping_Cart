@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var Product = require('../models/product');
-var Cart = require('../models/cart')
+var Cart = require('../models/cart');
+var utilController = require('../controller/util')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -34,4 +35,6 @@ router.get('/shop-cart',function(req,res,next){
    var cart = new Cart(req.session.cart);
    res.render('shop/shopping-cart',{products: cart.generateItemsArray(),totalPrice:cart.totalPrice});
 });
+
+router.get('/checkout',utilController.showIndex)
 module.exports = router;
