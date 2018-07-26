@@ -7,11 +7,12 @@ module.exports = function Cart(initItems){
        var storedItem = this.items[id];
        if(!storedItem){
            storedItem = this.items[id] = {item:item,quantity:0,price:0};
-           storedItem.quantity++;
-           storedItem.price = storedItem.item.price * storedItem.quantity;
-           this.totalQuantity++;
-           this.totalPrice += storedItem.item.price;
        }
+
+       storedItem.quantity++;
+       storedItem.price = storedItem.item.price * storedItem.quantity;
+       this.totalQuantity++;
+       this.totalPrice += storedItem.item.price;
    };
    this.generateItemsArray = function(){
        var itemsArray = [];
@@ -19,5 +20,5 @@ module.exports = function Cart(initItems){
            itemsArray.push(this.items[id]);
        }
        return itemsArray;
-   }
+   };
 };
