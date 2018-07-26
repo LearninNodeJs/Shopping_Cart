@@ -12,6 +12,7 @@ var session = require('express-session');
 var passport = require('passport');
 var flash = require('connect-flash');
 var validator = require('express-validator');
+var mongoStore = require('connect-mongo')(session);
 
 //Connect to Mongodb.
 
@@ -27,7 +28,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(validator());
 app.use(cookieParser());
-app.use(session({secret: 'mysupersecret',resave:false,saveUninitialized:false}));
+app.use(session({
+    secret: 'mysupersecret',
+    resave:false,
+    saveUninitialized:false,
+    store: new mongoStore({mongooseConnection:mongoose.connection}),
+    cookie: {maxAge: 180*60*100}
+}));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -35,6 +42,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(function(req,res,next){
    res.locals.login = req.isAuthenticated();
+   res.locals.session = req.session;
    next();
 });
 app.use('/user', usersRouter);
