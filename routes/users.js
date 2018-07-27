@@ -6,6 +6,7 @@ var csrf = require('csurf');
 var csrfProtection = csrf();
 router.use(csrfProtection);
 
+var userController = require('../controller/userController');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -16,11 +17,7 @@ router.get('/signup',function(req,res,next){
     var messages = req.flash('error');
     res.render('user/signup',{csrfToken: req.csrfToken() ,messages:messages,hasErrors:messages.length>0});
 });
-router.post('/signup',passport.authenticate('local.signup',{
-    successRedirect: '/user/profile',
-    failureRedirect:'/user/signup',
-    failureFlash: true
-}));
+router.post('/signup',userController.userSignIn);
 
 
 router.get('/signin',function(req,res,next){
