@@ -1,1 +1,28 @@
-<h1>User Profile</h1>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h1>User Profile</h1>
+        <hr>
+        <h2>My Orders</h2>
+        <div class="alert alert-info" {{#if existOrders}} hidden{{/if}}>
+            You Currently Do Not Have Existing Orders
+        </div>
+        {{# each orders}}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {{# each this.items}}
+                            <li class="list-group-item">
+                                <span class="badge">{{this.price}}</span>
+                                {{this.item.title}} || {{this.quantity}} Units
+                            </li>
+                        {{/each}}
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                   <strong>Total Order Price: $  {{this.cart.totalPrice}} </strong>
+                </div>
+            </div>
+        {{/each}}
+
+    </div>
+</div>

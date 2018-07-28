@@ -75,4 +75,17 @@ exports.checkoutItems = function (req,res,next) {
 
     });
 };
+exports.notLoggedIn = function (req,res,next){
+    if(!req.isAuthenticated()){
+        return next;
+    }
+    return res.redirect('/');
+}
+exports.isLoggedIn = function(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    req.session.oldUrl = req.url;
+    res.redirect('/user/signin');
+}
 
