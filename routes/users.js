@@ -17,6 +17,7 @@ router.get('/test',function(req,res,next){
 });
 router.get('/logout',function(req,res,next){
     req.logout();
+    req.session.cart = null;
     res.redirect('/');
 });
 
