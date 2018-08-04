@@ -25,7 +25,7 @@ passport.use('local.signup',new LocalStrategy({
             errors.forEach(function(error){
                messages.push(error.msg);
             });
-            return done(null,false,req.flash('error',messages))                        ;
+            return done(null,false,req.flash('error',messages))   ;                     ;
         }
         userModel.findOne({'email':email},function(err,user){
            if(err){
@@ -68,7 +68,7 @@ passport.use('local.signin', new LocalStrategy({
                return done(null,false,{message: 'User Not Found'});
            }
            if(!user.validPassword(password)){
-               return done(null,false,{message: 'Incorrect Password'});
+               return done(null,false,{message: 'Email Or Password is not Correct'});
            }
            return done(null,user);
         });
