@@ -1,6 +1,6 @@
 var Product = require('../models/product');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost:27017/ShopCart',{useNewUrlParser:true});
+mongoose.connect('mongodb+srv://admin:wamatu@restapi-kvyex.mongodb.net/test',{useNewUrlParser:true});
 var products = [
     new Product({
     imagePath:'https://upload.wikimedia.org/wikipedia/en/3/31/Codfhbox.jpg',

@@ -16,7 +16,7 @@ var mongoStore = require('connect-mongo')(session);
 
 //Connect to Mongodb.
 
-mongoose.connect('mongodb+srv://admin:wamatu@restapi-kvyex.mongodb.net/test?retryWrites=true',{useNewUrlParser:true});
+mongoose.connect('mongodb+srv://admin:wamatu@restapi-kvyex.mongodb.net/test',{useNewUrlParser:true});
 require('./config/passport')
 
 // view engine setup
