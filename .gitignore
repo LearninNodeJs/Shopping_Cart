@@ -39,6 +39,7 @@ build/Release
 node_modules/
 jspm_packages/
 package-lock.json
+.env
 
 # TypeScript v1 declaration files
 typings/
